@@ -1,5 +1,5 @@
 package com.supermark.servicios;
-import supermark.Cliente;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -25,7 +25,7 @@ public class CRUDTarjetadescuento {
 				td = new TarjetaDescuento(
 						rs.getInt("id_td"),
 						rs.getInt("puntos"),
-						rs.getCliente()get.Id_td();
+						rs.getInt("cliente")
 						
 						);
 			}

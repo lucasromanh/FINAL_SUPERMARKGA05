@@ -14,6 +14,10 @@ public class TarjetaDescuento {
 		this.cliente = cliente;
 	}
 
+	public TarjetaDescuento(int id_td, int puntos, int cliente) {
+		
+	}
+
 	public Integer getId_td() {
 		return id_td;
 	}

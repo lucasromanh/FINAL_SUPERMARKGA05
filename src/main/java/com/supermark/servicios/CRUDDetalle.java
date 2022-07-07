@@ -15,7 +15,7 @@ public class CRUDDetalle {
 	public CRUDDetalle() {
 		super();
 		this.conexion = new ConexionBDD("supermark");
-		this.conexion.connect();//Abre la conexion
+		this.conexion.connect();
 		this.sql = "";
 	}
 	
@@ -55,4 +55,30 @@ public class CRUDDetalle {
 			System.out.println("Linea de Detalle agregada");
 		}
 	}
+	
+	public void MostrarCompra(Comprobante comp){
+		HashMap<Integer, Detalle> detalles = new HashMap<Integer, Detalle>();
+		this.sql = "SELECT * FROM detalle ";
+		ResultSet rs;
+		try {
+			rs = conexion.getStmt().executeQuery(sql);
+			CRUDProducto cp = new CRUDProducto();
+			int count = 0;
+			while (rs.next()) {
+				count++;
+				Producto prod = cp.getProducto(rs.getInt("id_producto"));
+				Detalle linea = new Detalle(prod, rs.getInt("cantidad"), null);
+				detalles.put(count, linea);
+				System.out.println("id_producto: "+ prod);
+				System.out.println("detalle"+ linea);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	}
+
+	
+	
+	
 }

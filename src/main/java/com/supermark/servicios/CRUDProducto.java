@@ -2,6 +2,8 @@ package com.supermark.servicios;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 import supermark.Producto;
 
 public class CRUDProducto {
@@ -36,7 +38,7 @@ public class CRUDProducto {
 		return prod;
 	}
 	
-	public void actualizarStock(Producto producto,int cantidad) {
+	public boolean actualizarStock(Producto producto,int cantidad) {	
 		this.sql = "UPDATE producto SET producto.stock="+
 				(producto.getStock()+cantidad)+
 				" WHERE producto.id="+producto.getId();
@@ -46,7 +48,7 @@ public class CRUDProducto {
 			e.printStackTrace();
 		}finally {
 			System.out.println("Stock Actualizado");
-		}
+		}return true;
 	}
 	
 	public int getStockActual(Producto producto) {
@@ -67,6 +69,25 @@ public class CRUDProducto {
 		}
 		return stockActual;
 	}
+
+	public boolean cargarProducto(Producto producto) {
+		
+			this.sql =  "INSERT INTO producto" + " (id,nombre,marca,fecha_vto,precio,stock) " +
+					 "VALUE ( ' " + producto.getId () + "', '" + producto.getNombre() + 
+					"',  " + producto.getMarca () + ", " + producto.getF_venc() + ",  " + producto.getPrecio() + " ,"
+			+ producto.getStock() +"  )"; 
+			try {
+				conexion.getStmt().executeUpdate(this.sql);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				System.out.println ("Producto Cargado");
+				
+			}
+			return true;
+		
+		}
 	
 
 }

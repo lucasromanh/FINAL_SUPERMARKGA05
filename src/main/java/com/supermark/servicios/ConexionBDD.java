@@ -9,12 +9,11 @@ public class ConexionBDD {
 	
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private String DB_URL = "jdbc:mysql://localhost:3306/";
-	//Credenciales de la BDD
 	private static final String USER = "root";
 	private static final String PASS = "Micram135+";
 	
 	private Connection conn = null;
-	private Statement stmt = null;//Objeto para realizar las declaraciones SQL que requiramos
+	private Statement stmt = null;
 	private ResultSet rs = null;
 	
 	public ConexionBDD(String db) {
@@ -26,10 +25,9 @@ public class ConexionBDD {
 			Class.forName(JDBC_DRIVER);
 			
 			System.out.println("Conectando a la base datos...");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);//Me conecto a la base datos
-			
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);			
 			System.out.println("Creando sentencias SQL...");
-			//Especificamos que crearemos una sentencia SQL sobre la conexion previamente creada
+			
 			stmt = conn.createStatement();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

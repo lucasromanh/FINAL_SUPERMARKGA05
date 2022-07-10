@@ -8,7 +8,43 @@ public class Cliente {
 	private Domicilio domicilio;
 	private int edad;
 	private int id; 
+	private int rol;
+	private TarjetaDescuento tarjetadescuento;
 	
+
+
+	public Cliente(String nombre, String apellido, long dni, int id) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.id = id;
+	}
+
+	public TarjetaDescuento getTarjetadescuento() {
+		return tarjetadescuento;
+	}
+
+	public void setTarjetadescuento(TarjetaDescuento tarjetadescuento) {
+		this.tarjetadescuento = tarjetadescuento;
+	}
+
+	public Cliente(TarjetaDescuento tarjetadescuento) {
+		super();
+		this.tarjetadescuento = tarjetadescuento;
+	}
+
+	public Cliente(String nombre, String apellido, long dni, Domicilio domicilio, int edad, int id, int rol) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.domicilio = domicilio;
+		this.edad = edad;
+		this.id = id;
+		this.rol = rol;
+	}
+
 	public Cliente(String nom,String ape,long dni,Domicilio dom,int edad, int id) {
 		this.nombre = nom;
 		this.apellido = ape;
@@ -72,5 +108,26 @@ public class Cliente {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getContrasenia() {
+		
+		return this.getContrasenia();
+	}
+
+	public String getmail() {
+	
+		return null;
+	}
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
 	}
 }

@@ -12,7 +12,32 @@ public class Comprobante {
 	private String Tipo;
 	private MetodosdePago metododepago;
 	
+	private HashMap <Integer , Detalle >  convertir (ArrayList <Detalle> detalles){
+		HashMap <Integer , Detalle > det = new HashMap <Integer , Detalle > ();
+		for (int i=0; i < detalles.size();i++) {
+			det.put(i,detalles.get(i));
+		}
+		return det;
+	}
 	
+
+	
+
+
+
+	public Comprobante(Integer id, Float total, Timestamp fecha, String tipo) {
+		super();
+		this.id = id;
+		this.total = total;
+		this.fecha = fecha;
+		Tipo = tipo;
+	}
+
+
+
+
+
+
 	public Comprobante(Integer id, Float total, Timestamp fecha,HashMap <Integer , Detalle > detalle, Cliente destinatario, String tipo) {
 		
 		super();
@@ -55,54 +80,25 @@ public class Comprobante {
 	public HashMap <Integer , Detalle > getDetalle() {
 		return detalle;
 	}
-	public void setDetalle(HashMap <Integer , Detalle > detalle) {
-		this.detalle = detalle;
+	public void setDetalle(ArrayList <Detalle>  detalle) {
+		this.detalle = convertir (detalle);
 	}
 	
-	public void compra_producto(double precio, int cantidad,String nomProducto, String marca){
-		double pago=precio*cantidad;
-		double iva=0.21;
-		double pagoProducto,impuesto;
-		impuesto=pago*iva;
-		pagoProducto= pago+impuesto;
-		System.out.println(nomProducto+" "+marca+"\n"+cantidad+"x"+precio+
-				"     "+pagoProducto);
-		
+	public void setDetalle(HashMap <Integer , Detalle> detalle ) {
+		this.detalle =  (detalle);
 	}
-public double porcentaje (double total) {
-		
-		double monto_total = 0;
-		double descuento;
-		double puntaje = this.getPuntos();
-		if( puntaje == 5) {
-			descuento = total*0.05;
-			monto_total = total-descuento;
-		}
-			
-		else { 
-			if( puntaje == 10) {
-				descuento = total*0.1;
-				monto_total = total-descuento;
-			}
-			else {
-				if( puntaje == 15) {
-					descuento = total*0.15;
-					monto_total = total-descuento;
-					puntaje = 0;
-					
-				
-				}
-			}
-		
-	}
-		return monto_total;
 	
-	}
-				
-	private double getPuntos() {
-	
-	return 0;
-}
+//	public void compra_producto(double precio, int cantidad,String nomProducto, String marca){
+//		double pago=precio*cantidad;
+//		double iva=0.21;
+//		double pagoProducto,impuesto;
+//		impuesto=pago*iva;
+//		pagoProducto= pago+impuesto;
+//		System.out.println(nomProducto+" "+marca+"\n"+cantidad+"x"+precio+
+//				"     "+pagoProducto);
+//		
+//	}
+
 	public void encabezadoComprobante( ) {
 
 		System.out.println("-------------COMPROBANTE "+getTipo()+"------------");

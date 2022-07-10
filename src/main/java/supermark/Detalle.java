@@ -13,6 +13,10 @@ public class Detalle {
 		this.cantidad = cantidad;
 		this.tipoproducto = tipoproducto;
 	}
+	public Detalle(Producto producto, int cantidad) {
+		
+	}
+	
 	public Producto getProducto() {
 		return producto;
 	}

@@ -1,7 +1,7 @@
 package supermark;
 
 
-public class Transferencia {
+public class Transferencia extends MetodosdePago {
 	
 	private Integer cvu;
 	private Integer cbu;

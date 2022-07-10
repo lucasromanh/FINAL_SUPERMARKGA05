@@ -21,6 +21,10 @@ public class Producto {
 		this.stock = stock;
 	}
 	
+	public Producto(int id_producto, String nombre, float precio) {
+		
+	}
+
 	public Integer getStock() {
 		return stock;
 	}

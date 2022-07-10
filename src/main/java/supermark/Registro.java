@@ -4,14 +4,14 @@ package supermark;
 public class Registro {
 	private Cliente cliente;
 	private Domicilio domicilio;
-	private String id;
+	private int id;
 	private String mail;
 	private String contraseña;
 	
 	
 
 
-	public Registro(Cliente cliente, Domicilio domicilio, String id, String mail, String contraseña) {
+	public Registro(Cliente cliente, Domicilio domicilio, int id, String mail, String contraseña) {
 		super();
 		this.setCliente(cliente);
 		this.setDomicilio(domicilio);
@@ -21,12 +21,12 @@ public class Registro {
 	}
 
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

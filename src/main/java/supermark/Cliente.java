@@ -81,9 +81,7 @@ public class Cliente {
 		return this.domicilio;
 	}
 	
-	public long getDNI() {
-		return this.dni;
-	}
+
 	
 	public void mostrar(){
 		System.out.println("Mi nombre es "+this.nombre+" "+this.apellido);
@@ -130,4 +128,14 @@ public class Cliente {
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
+
+	public long getDni() {
+		return dni;
+	}
+
+	public void setDni(long dni) {
+		this.dni = dni;
+	}
+	
+	
 }

@@ -1,6 +1,9 @@
 package com.supermark.servicios;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import supermark.Registro;
 
@@ -32,10 +35,38 @@ public class CRUDIniciarSeion {
 			
 			}
 				return resultado;
+			
+		}	
 		
-		
-		
+		public Registro insertar (Registro registro)  {
+			
+			this.sql =  "INSERT INTO registro" + " (mail,contraseña,id_domicilio,id_cliente) " +
+					 "VALUE ( ', '" + registro.getMail() + 
+					"',  '" + registro.getContraseña () + " ', " + registro.getDomicilio().getId()+ ",  " + 
+					 registro.getCliente().getId() 
+			+"  )"; 
+			try {
+				PreparedStatement stmt = conexion.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				int filas = stmt.executeUpdate();
+				if(filas>0) {
+					ResultSet rs = stmt.getGeneratedKeys();
+					while(rs.next()) {
+						registro.setId(rs.getInt(1));
+					}
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				
+			} finally {
+				System.out.println ("Domicilio registrado");
+				
+			} return registro;
 		
 		}	
+		
+		
+		
+		
 	}
 	

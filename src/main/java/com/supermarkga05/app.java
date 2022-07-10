@@ -28,7 +28,8 @@ public class App {
 			response.type("application/json");
 			response.header("Access-Control-Allow-Origin", "*");
 			Gson mapper = new Gson();
-			Registro user = mapper.fromJson(request.body(),Registro.class);
+			Cliente user = mapper.fromJson(request.body(),Cliente.class);
+			
 			
 			CRUDCliente cu = new CRUDCliente();
 			boolean resultado = cu.estaRegistrado(user);
@@ -43,7 +44,7 @@ public class App {
 		    	return mapper
 		    			.toJson(new StandardResponse(
 		    					StatusResponse.SUCCESS,
-		    					"El usuario no figura en el sistema")
+		    					"El Cliente no figura en el sistema")
 		    					);
 		    }
 		});
@@ -53,16 +54,17 @@ public class App {
 			response.header("Access-Control-Allow-Origin", "*");
 			Gson mapper = new Gson();
 			Cliente user = mapper.fromJson(request.body(),Cliente.class);
-			System.out.println(user);
+			Registro reg = mapper.fromJson(request.body(),Registro.class);
+			System.out.println(reg);
 			
-			if(user.getContrasenia().length()<8) {
+			if(reg.getContraseña().length()<8) {
 				return mapper
-						.toJson(new StandardResponse(StatusResponse.ERROR,"Contrasenia insegura"));
+						.toJson(new StandardResponse(StatusResponse.ERROR,"Contraseña insegura"));
 			}else {
 				
 				CRUDCliente cu = new CRUDCliente();
 				boolean resultado = cu.registrar(user);
-				System.out.println(user);
+				System.out.println(reg);
 
 			    if(resultado==true) {
 			    	return mapper
@@ -178,7 +180,6 @@ public class App {
 			response.header("Access-Control-Allow-Origin", "*");
 			Gson mapper = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
 			Producto producto = mapper.fromJson(request.body(),Producto.class);
-			
 			CRUDCliente cu = new CRUDCliente();
 			boolean resultado = cu.esAdmin(new Cliente(null, null, Integer.valueOf(request.params(":id")), null));
 			if(resultado==true) {

@@ -12,7 +12,7 @@ public class CRUDProducto {
 	
 	public CRUDProducto() {
 		super();
-		this.conexion = new ConexionBDD("supermark");
+		this.conexion = new ConexionBDD("supermark_ga05");
 		this.conexion.connect();
 		this.sql = "";
 	}

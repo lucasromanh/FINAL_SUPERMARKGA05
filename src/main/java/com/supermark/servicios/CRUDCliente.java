@@ -2,11 +2,11 @@ package com.supermark.servicios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import supermark.Cliente;
 import supermark.Comprobante;
 import supermark.Domicilio;
 import supermark.Registro;
+
 
 
 public class CRUDCliente<CLiente> {
@@ -28,9 +28,9 @@ public class CRUDCliente<CLiente> {
 		this.sql = sql;
 	}
 	
-	public boolean iniciarSesion(Registro cliente) {
-		this.sql = "SELECT * FROM registro WHERE registro.mail='"+cliente.getMail()+
-				"' AND registro.contraseña = '"+cliente.getContraseña()+"'";
+	public boolean iniciarSesion(Registro registro) {
+		this.sql = "SELECT * FROM registro WHERE registro.mail='"+registro.getMail()+
+				"' AND registro.contraseña = '"+registro.getContraseña()+"'";
 		boolean resultado = false;
 		try {
 			conexion.setRs(conexion.getStmt().executeQuery(sql));
@@ -44,26 +44,30 @@ public class CRUDCliente<CLiente> {
 	}
 
 	
-	public void insertar (Cliente cliente)  {
-		CRUDDomicilio domi = new CRUDDomicilio();
-		CRUDTarjetadescuento desc = new CRUDTarjetadescuento ();
-		
-		cliente.setDomicilio(domi.insertar (cliente.getDomicilio()));
-		cliente.setTarjetadescuento(desc.Crear (cliente.getTarjetadescuento()));
-		this.sql =  "INSERT INTO cliente" + " (id,nombre,apellido,dni,id_domicilio,edad,rol,id_tarjetadescuento) " +
-				 "VALUE (  " +cliente.getId ()+ " , '"  + cliente.getNombre () + "', '" + cliente.getApellido() + 
-				"',  " + cliente.getDNI () + ", " + cliente.getDomicilio() + ",  " + cliente.getEdad() + " ,"
-		+ cliente.getId() +",' " + cliente.getRol()+ " ', " + cliente.getTarjetadescuento()+ " )"; 
+	public boolean registrar(Cliente cliente) {
+		CRUDDomicilio cdom = new CRUDDomicilio();
+		Domicilio dom = cdom.insertar(cliente.getDomicilio());
+		cliente.setDomicilio(dom);
+		this.sql = "INSERT INTO Cliente "+
+				"(id,nombre,apellido,dni,id_domicilio,edad,rol,id_tarjetadescuento) "+
+				"VALUE ('"+
+				cliente.getId()+"','"+
+				cliente.getNombre()+"','"+
+				cliente.getApellido()+"','"+
+				cliente.getDni()+",'"+
+				cliente.getDomicilio().getId()+")"+
+				cliente.getEdad()+",'"+
+				cliente.getRol()+",'"+
+				cliente.getTarjetadescuento().getId_td()+" )";
+		boolean resultado = false;
 		try {
-			conexion.getStmt().executeUpdate(this.sql);
-		}
-		catch (SQLException e) {
+			conexion.getStmt().executeUpdate(sql);
+			resultado = true;
+			System.out.println("Cliente registrado");
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			System.out.println ("Cliente registrado");
-			
 		}
-	
+		return resultado;
 	}
 	
 	public ArrayList<Cliente> consultarCliente(){
@@ -103,7 +107,7 @@ public class CRUDCliente<CLiente> {
 	public void eliminar (Cliente cliente)  {
 		this.sql =  "DROP INTO cliente" + " (nombre,apellido,dni,id_domicilio,edad,id) " +
 				 "VALUE ( ' " + cliente.getNombre () + "', '" + cliente.getApellido() + 
-				"',  " + cliente.getDNI () + ", " + cliente.getDomicilio().getId() + ",  " + cliente.getEdad() + " ,"
+				"',  " + cliente.getDni () + ", " + cliente.getDomicilio().getId() + ",  " + cliente.getEdad() + " ,"
 		+ cliente.getId() +"  )"; 
 		try {
 			conexion.getStmt().executeUpdate(this.sql);
@@ -120,7 +124,7 @@ public class CRUDCliente<CLiente> {
 	public void modificar (Cliente cliente)  {
 		this.sql =  "ALTER INTO cliente" + " (nombre,apellido,dni,id_domicilio,edad,id) " +
 				 "VALUE ( ' " + cliente.getNombre () + "', '" + cliente.getApellido() + 
-				"',  " + cliente.getDNI () + ", " + cliente.getDomicilio().getId() + ",  " + cliente.getEdad() + " ,"
+				"',  " + cliente.getDni () + ", " + cliente.getDomicilio().getId() + ",  " + cliente.getEdad() + " ,"
 		+ cliente.getId() +"  )"; 
 		try {
 			conexion.getStmt().executeUpdate(this.sql);
@@ -134,8 +138,22 @@ public class CRUDCliente<CLiente> {
 	
 	}
 
-	public boolean estaRegistrado(Registro registro) {
-		this.sql = "SELECT * FROM registro WHERE registro.mail='"+registro.getMail()+"'";
+//	public boolean estaRegistrado(Registro registro) {
+//		this.sql = "SELECT * FROM registro WHERE registro.mail='"+registro.getMail()+"'";
+//		boolean resultado = false;
+//		try {
+//			conexion.setRs(conexion.getStmt().executeQuery(sql));
+//			while(conexion.getRs().next()) {
+//				resultado = true;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return resultado;
+//	}
+
+	public boolean estaRegistrado(Cliente cliente) {
+		this.sql = "SELECT * FROM cliente WHERE id_domicilio='"+cliente.getDomicilio().getId();
 		boolean resultado = false;
 		try {
 			conexion.setRs(conexion.getStmt().executeQuery(sql));
@@ -145,12 +163,8 @@ public class CRUDCliente<CLiente> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return resultado;
-	}
-
-	public boolean registrar(Cliente user) {
 		
-		return false;
+		return resultado;
 	}
 	
 
